@@ -4,24 +4,52 @@
 
 # Issues and Pull Requests
 
+[reveal]
+
 - We use issues to track our work
 - Pull requests are just a special type of issue
 
 !
 
-# Making a new issue
+# Working with issues
 
-- [New Issue button](https://github.com/aboutdotme/main/issues) - drag to bookmarks bar
-- Give a short title, and a long description
-- Paste screenshots
-- Making a TODO list
-	- displays as a progress bar in list views
-- Assignee (optional)
-	- Andy will delegate unassigned tickets
-- Add labels
+[reveal]
+
+## Viewing all issues
+
+[https://github.com/aboutdotme/main/issues](https://github.com/aboutdotme/main/issues)
+
+## Viewing your issues
+
+[https://github.com/aboutdotme/main/issues/assigned/&lt;username&gt;](https://github.com/aboutdotme/main/issues/assigned/pascalpp)
+
+## Committing to an issue
+
+Tag the issue in your commit messages `[#604]`
+
+## Making new issues
+
+Drag the New Issue button to your bookmarks bar
+
 
 !
 
+# Making a new issue
+
+[reveal]
+
+- Give a short title
+- Give a long description
+	- Make a TODO list
+		- `- [ ] todo item` becomes <input type="checkbox" id="examplecheckbox" style="transform:scale(2);margin-left:20px;position:relative;top:-5px;"> todo item
+		- add subtasks for a feature or chore, or list steps to reproduce a bug
+		- displays as a progress bar in list views
+	- Paste screenshots
+- Assignee (optional)
+	- Andy will delegate unassigned tickets
+- Add labels…
+
+!
 
 # Labeling a new issue
 
@@ -52,52 +80,34 @@ Medium priority is assumed unless otherwise labeled
 
 !
 
-# Managing your issues
-
-[reveal]
-
-## Viewing all issues
-
-[https://github.com/aboutdotme/main/issues](https://github.com/aboutdotme/main/issues)
-
-## Viewing your issues
-
-[https://github.com/aboutdotme/main/issues/assigned/&lt;username&gt;](https://github.com/aboutdotme/main/issues/assigned/pascalpp)
-
-Put that in your bookmarks bar
-
-## Committing to an issue
-
-Tag the issue in your commit messages `[#604]`
-
-!
-
 # Labeling your issues
 
 [reveal]
 
 ## Update status as you work on issues
 
-<span class="label status">0 - Backlog</span>
-<span class="label status">1 - Ready</span>
+<span class="label status faded">0 - Backlog</span>
+<span class="label status faded">1 - Ready</span>
 <span class="label status">2 - Started</span>
 <span class="label status">3 - Code Complete</span>
-<span class="label status">4 - Released</span>
+<span class="label status faded">4 - Released</span>
+
+Status labels are used in Huboard to track issues from start to finish.
 
 ## Issue blockers
 
 <span class="label issue-blocker">needs design input</span>
 <span class="label issue-blocker">needs product input</span>
 
-Add a comment explaining what you need so the person who opened the issue (or Trello card) will be notified. Don't reassign, or reassign to Andy for escalation if needed.
+Add a comment explaining what you need so the person who opened the issue (or Trello card) will be notified.
 
 ## Dead ends
 
-<span class="label issue-deadend">can't reproduce</span> Reassign to the person who opened the issue for clarification.
+<span class="label issue-deadend">can’t reproduce</span> Reassign to the person who opened the issue for clarification.
 
-<span class="label issue-deadend">duplicate</span> Reference the existing issue in a comment (duplicate of #333) and close the issue.
+<span class="label issue-deadend">duplicate</span> Reference the existing issue in a comment (`duplicate of #333`) and close the duplicate issue.
 
-<span class="label issue-deadend">won’t fix</span> Explain why the issue won't be addressed and close it.
+<span class="label issue-deadend">won’t fix</span> Explain why the issue won’t be addressed and close it.
 
 !
 
@@ -105,12 +115,16 @@ Add a comment explaining what you need so the person who opened the issue (or Tr
 
 [reveal]
 
-- Give a short title, and a long description
-- Tag the associated issue `[fixes #604]`
-	- You can also tag issues in other repos!
-	- `[fixes aboutdotme/me-node-api#304]`
-- Describe the test procedure in a TODO list
-- Add labels
+- Give a short title
+	- plain English, usually starting with a verb
+	- “Adds so-and-so feature”
+	- “Fixes such-and-such bug”
+- Give a long description
+	- Tag the associated issue `[fixes #604]`
+		- You can also tag issues in other repos!
+		- `[fixes aboutdotme/me-node-api#304]`
+	- Describe the test procedure in a TODO list
+- Add labels…
 
 !
 
@@ -147,15 +161,15 @@ You forgot to tell QA how to test the PR. You do bad.
 
 <span class="label pr-greenlight">PR: code reviewed</span>
 
-If you've been assigned a PR to review and the code looks good, or all your<br>requested/suggested changes have been made, remove the <span class="label pr-blocker" style="position:relative;top:-1px;">PR: needs code review</span><br>label and add this one.
+When you’ve finished reviewing a PR that was assigned to you, remove <span class="label pr-blocker" style="position:relative;top:-1px;">PR: needs code review</span> and add this label.
 
 <span class="label pr-greenlight">PR: tested</span>
 
-Used by QA to track PRs that have been tested. All todo items in the test procedure should be checked before this is added.
+Used by QA to track PRs that have been tested. All TODO items in the test procedure should be checked before this is added.
 
 <span class="label pr-greenlight">PR: no test needed</span>
 
-This PR doesn't require testing. Well aren't you fancy?
+This PR doesn’t require testing. Well aren’t you fancy?
 
 !
 

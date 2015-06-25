@@ -13,8 +13,9 @@ body {
 }
 
 a {
-	color: #600;
+	color: green;
 	text-decoration: none;
+	font-family: Helvetica;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -122,59 +123,6 @@ pre, code {
 	padding: 5px;
 }
 
-ul.people {
-	margin: 0;
-	padding: 0;
-}
-
-li.person {
-	list-style: none;
-	background-image: url(./silhouette-200x200.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	margin: 5px 0;
-	background-color: #dde;
-	padding: 10px 20px;
-	padding-left: 120px;
-	min-height: 80px;
-	display: flex;
-	flex-flow: column;
-	justify-content: space-between;
-	border-radius: 3px;
-}
-
-li.person .actions {
-	margin-top: 10px;
-	text-align: right;
-}
-li.person button {
-	font-size: 20px;
-	font-family: inherit;
-}
-
-.sortbar {
-	display: flex;
-	flex-flow: row;
-}
-.sortbar .button {
-	width: 100%;
-	text-align: center;
-	background-color: #666;
-	color: #ccc;
-	padding: 5px;
-	border: 1px solid white;
-	border-radius: 5px;
-	cursor: pointer;
-}
-.sortbar .button.active {
-	background-color: #000;
-	color: #fff;
-}
-
-.my-layout button.poke {
-	display: none;
-}
-
 
 .for-print .content-holder {
 	width: 100%;
@@ -214,9 +162,11 @@ li.person button {
 	font-size: 24px;
 	padding: 5px 15px;
 	border-radius: 4px;
-	box-shadow: inset 0px -1px 0px 1px rgba(0,0,0,0.05);
+	box-shadow: inset 0px -1px 0px 1px rgba(0,0,0,0.1);
 	display: inline-block;
 }
+
+.label.faded { opacity: 0.5; }
 
 .label.status { background-color: #CCCCCC; }
 .label.fed, .label.bed { background-color: #ece6fc; }
