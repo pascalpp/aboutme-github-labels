@@ -62,6 +62,10 @@ Medium priority is assumed unless otherwise labeled
 
 Put that in your bookmarks bar
 
+## Committing to an issue
+
+Tag the issue in your commit messages `[#604]`
+
 !
 
 # Labeling your issues
@@ -93,6 +97,7 @@ Add a comment explaining what you need so the person who opened the issue (or Tr
 
 # Making a new pull request
 
+- Give a short title, and a long description
 - Tag the associated issue `[fixes #604]`
 	- You can also tag issues in other repos!
 	- `[fixes aboutdotme/me-node-api#304]`
