@@ -1,0 +1,326 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1" />
+	<title>Using Github Issues</title>
+	<link rel="stylesheet" href="./style.css" media="screen" title="no title" charset="utf-8">
+	<script src="./bower_components/jquery/dist/jquery.js"></script>
+	<script src="showdown.js"></script>
+
+</head>
+<body tabindex="1">
+	<div class="for-screen">
+
+		<div class="bg">&nbsp;</div>
+
+		<div class="wrapper">
+			<div class="centered">
+				<em>Loading</em>
+			</div>
+		</div>
+
+		<div class="testnode"></div>
+
+		<div class="slideProgress"></div>
+		<div class="slideCount">
+			<select tabindex="-1">
+			</select>
+		</div>
+
+		<div class="padding">
+			<!-- This padding need to hiding address bar automatically at iPhone/iPad/Android browser. -->
+		</div>
+
+	</div>
+
+	<div class="for-print">
+		<table class="content-holder template">
+			<tr valign=center>
+				<td>
+					<div class='centered'><h2>Foo</h2>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<script>
+
+var $view;
+var revealed = {};
+
+var prepSlide = function() {
+	$(window).scrollTop(0);
+	$view.removeAttr('reveal').removeAttr('revealed');
+
+	var reveal = false;
+
+	// parse reveal
+	$view.find('h2, p, pre, li').each(function() {
+		var $this = $(this);
+		if (reveal) {
+			$this.addClass('reveal');
+		}
+		if ($this.text() === '[reveal]') {
+			$this.remove();
+			if (Present.currentSlide >= Present.lastSlide) {
+				if (! revealed[Present.currentSlide]) {
+					// only turn on reveal the first time a slide is shown
+					reveal = true;
+				}
+			}
+		}
+	});
+	revealed[Present.currentSlide] = true;
+
+	// make demo buttons clickable
+	$view.find('code').each(function() {
+		var $code = $(this)
+		var text = $code.text();
+		if (/^DEMO:/.test(text)) {
+			var parts = text.split(':');
+			var demo = parts[1];
+			$code.addClass('demo').data('demo', demo).text('DEMO');
+		}
+	});
+
+	var title = $view.find('h1,h2,h3,h4,h5,h6').first().attr('id');
+	$view.attr('slide', title);
+	$view.attr('number', Present.currentSlide+1);
+};
+
+var Present = {
+	// Slide transition effects.
+	effects: {
+		// n: no effect.
+		n: {
+			pre: function (view, callback) { callback(); },
+			post: function (view) { }
+		},
+		// f: fade in/out.
+		f: {
+			pre: function (view, callback) { view.fadeOut('fast', callback); },
+			post: function (view) { view.fadeIn('fast'); }
+		}
+	},
+};
+Present.currentEffect = Present.effects['n']; // Default slide transiton effect is nothing.
+
+Present.hashToSlideIndex = function () {
+	var matches = window.location.hash.match(/#(\d+)/);
+	if (matches == null) return 0;
+	return parseInt(matches[1]) - 1;
+}
+
+Present.currentSlide = Present.hashToSlideIndex();
+
+Present.showSlide = function(slide) {
+	slide = Math.max(0, Math.min(slide, Present.slides.length - 1));
+	Present.lastSlide = Present.currentSlide;
+	Present.currentSlide = slide;
+
+	$view = $('.for-screen .centered');
+	this.currentEffect.pre($view, $.proxy(function () {
+		$view.html(this.slides[this.currentSlide]);
+		prepSlide();
+		this.currentEffect.post($view);
+	}, this));
+
+	$('.slideCount select').val(this.currentSlide);
+	$('.slideProgress').css("width", (this.currentSlide + 1)/this.slides.length * 100 + "%");
+	window.location.hash = '#' + (Present.currentSlide + 1);
+};
+Present.nextSlide = function() {
+	var reveal = $view.find('.reveal').not('.revealed');
+	console.log()
+	if (reveal.length) {
+		reveal.first().addClass('revealed');
+	} else {
+		if (Present.currentSlide < Present.slides.length-1) {
+			Present.showSlide(Present.currentSlide+1);
+		}
+	}
+};
+Present.prevSlide = function() {
+	if ($(window).scrollTop() > 0) {
+		$(window).scrollTop(0);
+	} else if (Present.currentSlide > 0) {
+		Present.showSlide(Present.currentSlide-1);
+	}
+};
+
+Present.buildPrintPage = function () {
+	var forPrint = $('.for-print');
+	$('.content-holder:not(.template)', forPrint).remove();;
+	var template = $('.content-holder.template', forPrint);
+	$.each(Present.slides, function (_, slide) {
+		var holder = template.clone()
+		.appendTo(forPrint)
+		.removeClass('template');
+		$('.centered', holder).html(slide);
+	});
+}
+
+Present.buildSlideCounter = function () {
+	var $counter = $('.slideCount select');
+	var optionHtmls = [];
+	var numOfSlides = this.slides.length;
+	$.each(this.slides, function (i) {
+		optionHtmls.push('<option value="' + i + '">Slide ' + (i + 1) + ' of ' + numOfSlides + '</option>');
+	});
+	$counter.html(optionHtmls.join(''));
+}
+
+Present.reload = function() {
+	$.ajax({
+		url: 'presentation.md',
+		cache: false,
+		dataType: 'text',
+		success: function(data) {
+			if (data.length>0) {
+				converter = new Showdown.converter();
+				var converted = converter.makeHtml(data);
+				Present.slides = converted.split('<p>!</p>');
+				Present.buildSlideCounter();
+				Present.showSlide(Present.currentSlide);
+
+				// If beforeprint event not supported, build pages to printing now.
+				if (('onbeforeprint' in window) === false) Present.buildPrintPage();
+			}
+		}
+	});
+};
+Present.reload();
+
+(function () {
+	var pageToJump = '';
+	var effectCmd = false;
+
+	$(document).keydown(function(e){
+		if (e.keyCode == 13) { // enter
+			if (pageToJump != '') {
+				Present.showSlide(parseInt(pageToJump) - 1);
+				pageToJump = '';
+			}
+		}
+		if (48 <= e.keyCode && e.keyCode <= 57) {
+			pageToJump += String.fromCharCode(e.keyCode);
+		}
+		else {
+			pageToJump = '';
+		}
+
+		// Detect key combination to change slide transition effect.
+		// ex) 'e','f' -> change effect to fade in/out.
+		if (e.keyCode == 'E'.charCodeAt(0)) effectCmd = true;
+		else if (effectCmd)
+		{
+			var effectName = String.fromCharCode(e.keyCode).toLowerCase();
+			var effect = Present.effects[effectName];
+			if (typeof (effect) !== 'undefined') Present.currentEffect = effect;
+			effectCmd = false;
+		}
+
+		if (e.keyCode == 37) {
+			Present.prevSlide();
+			return false;
+		}
+		if (e.keyCode == 39) {
+			Present.nextSlide();
+			return false;
+		}
+		if (e.keyCode == 32) { // space
+			Present.reload();
+			return false;
+		}
+	});
+})();
+
+// Build print page on demand.
+$(window).bind('beforeprint', Present.buildPrintPage);
+
+$(function () {
+	var startPos = null;
+	var isPointerTypeTouch = function (e) {
+		if ('pointerType' in e.originalEvent)
+		return (e.originalEvent.pointerType == 'touch');
+		else true;
+	};
+	var getPos = function (e) {
+		if ('touches' in e.originalEvent) {
+			var touches = e.originalEvent.touches;
+			if (touches.length < 1) return { x: 0, y: 0 };
+			return { x: touches[0].pageX, y: touches[0].pageY };
+		}
+		return { x: e.pageX, y: e.pageY };
+	};
+	var ontouchstart = function (e) {
+		if (isPointerTypeTouch(e) === false) return;
+		startPos = getPos(e);
+	}
+	var ontouchmove = function (e) {
+		if (startPos === null || isPointerTypeTouch(e) === false) return;
+		var pos = getPos(e);
+		var d = { x: startPos.x - pos.x, y: startPos.y - pos.y };
+		if (Math.abs(d.x) >=40) {
+			startPos = null;
+			$(this).trigger(d.x < 0 ? 'swiperight' : 'swipeleft');
+			return false;
+		}
+	}
+	var ontouchend = function (e) {
+		if (startPos === null || isPointerTypeTouch(e) === false) return;
+		startPos = null;
+	}
+
+	var hideaddressbar = function () {
+		setTimeout(function () { window.scrollTo(0, 1); }, 100);
+	};
+
+	$(document.body)
+	.bind({
+		// IE10
+		'MSPointerDown': ontouchstart,
+		'MSPointerMove': ontouchmove,
+		'MSPointerUp': ontouchend,
+
+		// IE11+
+		'pointerdown': ontouchstart,
+		'pointermove': ontouchmove,
+		'pointerup': ontouchend,
+
+		// Webkit, Gecko
+		'touchstart': ontouchstart,
+		'touchmove': ontouchmove,
+		'touchend': ontouchend,
+		'swiperight': function () {
+			Present.prevSlide();
+			hideaddressbar();
+		},
+		'swipeleft': function () {
+			Present.nextSlide();
+			hideaddressbar();
+		}
+	});
+
+	hideaddressbar();
+
+	$(window).bind('orientationchange', hideaddressbar);
+});
+
+// Go to page by hash of URL changed.
+$(window).bind('hashchange', function () {
+	var slideIndex = Present.hashToSlideIndex();
+	if (Present.currentSlide != slideIndex)
+	Present.showSlide(slideIndex);
+});
+
+// Go to page by drop down list changed.
+$('.slideCount select').change(function () {
+	Present.showSlide(parseInt($(this).val()));
+	setTimeout(function () { document.body.focus(); }, 0);
+});
+
+</script>
+
+</body>
+</html>

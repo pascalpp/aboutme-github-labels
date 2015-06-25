@@ -1,0 +1,242 @@
+html, body, table {
+	margin:0;
+	border:0;
+	padding:0;
+	font-family: Georgia;
+	line-height: 1.4;
+	color: #333;
+	-ms-touch-action: none;
+	-moz-user-select:none;
+}
+body {
+	padding: 60px 120px;
+}
+
+a {
+	color: #600;
+	text-decoration: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: Helvetica;
+	text-rendering: optimizeLegibility;
+	font-weight: 600;
+	margin: 0;
+	line-height: 1;
+	margin-bottom: 20px;
+}
+h4,h5,h6 {
+	opacity: 0.3;
+}
+
+
+
+h1 {
+	font-size: 1.8em;
+}
+h2 {
+	font-size: 1em;
+	margin-bottom: 5px;
+	margin-top: 60px;
+}
+h4 {
+	font-size: 1em;
+}
+p {
+	margin: 20px 0;
+	margin-left: 50px;
+}
+
+.slideCount {
+	position: fixed;
+	top: 1.5em;
+	right: 0;
+	height:1.5em;
+	overflow:hidden;
+}
+.slideCount select {
+	color:white;
+	background-color: transparent;
+	border-color:#112;
+	border:none;
+	font-size:1em;
+	height:1.3em;
+	width:10em;
+
+	-webkit-appearance: none;
+	border-radius:0;
+	-webkit-border-radius: 0;
+}
+.slideProgress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: green;
+	width: 100%;
+	min-height: 10px;
+}
+.padding {
+	height: 60px;
+}
+
+/* My styling here */
+.bg {
+	background-image: url(bg.jpg);
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	opacity:0.01;
+	z-index:-1;
+}
+
+.centered {
+	margin:auto;
+	font-size:32px;
+	width: 100%;
+}
+.centered[slide=usinggithubissues] {
+	padding-top: 200px;
+	font-size: 50px;
+}
+.centered[slide=fin] {
+	padding-top: 100px;
+	text-align: center;
+	font-size: 50px;
+}
+.centered[slide=fin] h1 {
+	font-style: italic;
+	font-family: Georgia;
+	font-weight: normal;
+}
+
+.centered .reveal {
+	opacity: 0;
+}
+.centered .reveal.revealed {
+	opacity: 1;
+	transition: opacity 100ms ease-in-out;
+}
+
+.centered li {
+	margin: 0.5em 0;
+}
+
+
+pre, code {
+	font-family: 'Source Code Pro';
+	background-color: rgba(255,255,204,0.3);
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	padding: 5px;
+}
+
+ul.people {
+	margin: 0;
+	padding: 0;
+}
+
+li.person {
+	list-style: none;
+	background-image: url(./silhouette-200x200.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin: 5px 0;
+	background-color: #dde;
+	padding: 10px 20px;
+	padding-left: 120px;
+	min-height: 80px;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	border-radius: 3px;
+}
+
+li.person .actions {
+	margin-top: 10px;
+	text-align: right;
+}
+li.person button {
+	font-size: 20px;
+	font-family: inherit;
+}
+
+.sortbar {
+	display: flex;
+	flex-flow: row;
+}
+.sortbar .button {
+	width: 100%;
+	text-align: center;
+	background-color: #666;
+	color: #ccc;
+	padding: 5px;
+	border: 1px solid white;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.sortbar .button.active {
+	background-color: #000;
+	color: #fff;
+}
+
+.my-layout button.poke {
+	display: none;
+}
+
+
+.for-print .content-holder {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+.for-print .content-holder.template { display:none; }
+@media screen {
+	.for-print { display:none; }
+}
+@media print {
+	.for-screen { display: none; }
+}
+@media only screen and (max-width: 768px) {
+	.centered {
+		-ms-zoom: 0.8;
+		zoom: 0.8;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.centered {
+		-ms-zoom: 0.5;
+		zoom: 0.5;
+	}
+}
+@media only screen and (max-width: 320px) {
+	.centered {
+		-ms-zoom: 0.35;
+		zoom: 0.35;
+	}
+}
+
+
+.label {
+	font-family: Helvetica;
+	font-weight: bold;
+	font-size: 24px;
+	padding: 5px 15px;
+	border-radius: 4px;
+	box-shadow: inset 0px -1px 0px 1px rgba(0,0,0,0.05);
+	display: inline-block;
+}
+
+.label.status { background-color: #CCCCCC; }
+.label.fed, .label.bed { background-color: #ece6fc; }
+.label.browser { background-color: #BFD4F2; }
+.label.bug { background-color: #f7c6c7; }
+.label.chore { background-color: #fef2c0; }
+.label.feature { background-color: #bfe5bf; }
+.label.issue-blocker { background-color: #eb6420; color: white; }
+.label.priority-high { background-color: #006699; color: white; }
+.label.priority-low { background-color: #dceaec; }
+.label.issue-deadend { background-color: #eeeeee; }
+.label.pr-greenlight { background-color: #009800; color: white; }
+.label.pr-blocker { background-color: #e11d21; color: white; }
