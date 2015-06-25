@@ -22,6 +22,7 @@
 
 !
 
+
 # Labeling a new issue
 
 ## Issue type (pick one)
