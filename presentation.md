@@ -23,15 +23,15 @@
 
 [https://github.com/aboutdotme/main/issues/assigned/&lt;username&gt;](https://github.com/aboutdotme/main/issues/assigned/pascalpp)
 
-Put that in your bookmarks bar
-
 ## Committing to an issue
 
 Tag the issue in your commit messages `[#604]`
 
 ## Making new issues
 
-Drag the New Issue button to your bookmarks bar
+[https://github.com/aboutdotme/main/issues/new](https://github.com/aboutdotme/main/issues/new)
+
+Or drag the New Issue button to your bookmarks bar
 
 
 !
