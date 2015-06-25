@@ -23,6 +23,8 @@
 
 [https://github.com/aboutdotme/main/issues/assigned/&lt;username&gt;](https://github.com/aboutdotme/main/issues/assigned/pascalpp)
 
+Put that in your bookmarks bar
+
 ## Committing to an issue
 
 Tag the issue in your commit messages `[#604]`
