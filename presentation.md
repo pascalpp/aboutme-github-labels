@@ -25,6 +25,8 @@
 
 # Labeling a new issue
 
+[reveal]
+
 ## Issue type (pick one)
 
 <span class="label feature">feature</span> <span class="label bug">bug</span> <span class="label chore">chore</span>
@@ -52,6 +54,8 @@ Medium priority is assumed unless otherwise labeled
 
 # Managing your issues
 
+[reveal]
+
 ## Viewing all issues
 
 [https://github.com/aboutdotme/main/issues](https://github.com/aboutdotme/main/issues)
@@ -69,6 +73,8 @@ Tag the issue in your commit messages `[#604]`
 !
 
 # Labeling your issues
+
+[reveal]
 
 ## Update status as you work on issues
 
@@ -97,6 +103,8 @@ Add a comment explaining what you need so the person who opened the issue (or Tr
 
 # Making a new pull request
 
+[reveal]
+
 - Give a short title, and a long description
 - Tag the associated issue `[fixes #604]`
 	- You can also tag issues in other repos!
@@ -109,6 +117,8 @@ Add a comment explaining what you need so the person who opened the issue (or Tr
 # Labeling a new pull request
 
 ## PR Blockers
+
+[reveal]
 
 <span class="label pr-blocker">PR: needs code review</span>
 
@@ -132,6 +142,8 @@ You forgot to tell QA how to test the PR. You do bad.
 # Labeling pull requests
 
 ## PR Greenlights
+
+[reveal]
 
 <span class="label pr-greenlight">PR: code reviewed</span>
 
